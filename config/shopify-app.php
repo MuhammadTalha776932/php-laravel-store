@@ -135,7 +135,7 @@ return [
     |
     */
 
-    'appbridge_enabled' => (bool) env('SHOPIFY_APPBRIDGE_ENABLED', false), 
+    'appbridge_enabled' => (bool) env('SHOPIFY_APPBRIDGE_ENABLED', true), 
     // ture default
 
     // Use semver range to link to a major or minor version number.
