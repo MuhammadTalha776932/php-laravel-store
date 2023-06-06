@@ -30,6 +30,7 @@ Route::get('/login', function(){
 // Route::get("/test", function(){
 //    auth()->user()->api()->rest('GET','/admin/api/2023-04/products.json');
 // });
+
 Route::get("/test", function(){
    $product =  auth()->user()->api()->rest('GET','/admin/api/2023-04/products.json')['body'];
    return view("products",compact('product'));
