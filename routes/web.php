@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Http;
 use Shopify\Context;
 use Shopify\Auth\FileSessionStorage;
-
+use Shopify\Auth\Session;
+use Shopify\Rest\Admin2023_04\Product;
+use Shopify\Utils;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +34,14 @@ Context::initialize(
     isPrivateApp: false,
 );
 
+$requestHeaders = array( 
+    'api_version' => '2023-01', 
+    'X-Shopify-Access-Token' => '60534dea697fa304ba1a5c9ab9c048e2-1686478185',
+    'authorization' => 'Bearer 60534dea697fa304ba1a5c9ab9c048e2-1686478185',
+    // 'Content-Type' => 'application/json',
+ );
+$requestCookies = array();
+$isOnline = true;
 
 Route::get('/', function () {
     return view('welcome');
@@ -51,14 +61,33 @@ Route::get("/test", function(){
    return view("products",compact('product'));
 })->middleware(['verify.shopify'])->name('test');
 
+// $this->test_session = Utils::loadCurrentSession(
+//     $requestHeaders,
+//     $requestCookies,
+//     $isOnline
+// );
+
+
+
 Route::get("/products",function() {
     // $client = new Client();
     // $res = $client->request('GET','https://jsonplaceholder.typicode.com/users/1');
     // dd($res->getBody());
-    $response = Http::get('https://fakestoreapi.com/products');
-    $products = $response->json();
-    return view('productsCollection',compact('products'));
-})->name('products');
+
+    // $response = Http::get('https://fakestoreapi.com/products/1');
+    // $products = $response->json();
+
+    // $product = new Product($this->test_session);
+    // $product->title = "Burton Custom Freestyle 151";
+    // $product->body_html = "<strong>Good snowboard!</strong>";
+    // $product->vendor = "Burton";
+    // $product->product_type = "Snowboard";
+    // $product->status = "draft";
+    // $product->save(
+    //     true, // Update Object
+    // );
+    // return view('productsCollection',compact('products'));
+})->middleware(['verify.shopify'])->name('products');
 
 
 
